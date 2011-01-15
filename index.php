@@ -37,7 +37,7 @@ $value = $_GET['value'];
 
 var_dump($value);
 
-$pattern = '/('.$selector.'\s*\{[\w\s:\-;\(\)#]*)('.$property.'\s*:)([^;\}]+)(;|\})/Ui';
+$pattern = '/('.preg_quote($selector).'\s*\{[\w\s:\-;\(\)#]*)('.preg_quote($property).'\s*:)([^;\}]+)(;|\})/Ui';
 
 $replace = '$1 $2 '.$_GET['value'] .'; $5';
 
@@ -50,7 +50,7 @@ if ($result != $content){
     die('success');
 }
 
-$pattern = '/('.$selector.'\s*\{[\w\s:\-;\(\)#]*)}/Ui';
+$pattern = '/('.preg_quote($selector).'\s*\{[\w\s:\-;\(\)#]*)}/Ui';
 $result = preg_replace($pattern, '$1 ' . $property . " : " . $value .";\n}",$content);
 writeFile($result,$location);
 echo "success";
